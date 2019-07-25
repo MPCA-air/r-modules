@@ -6,11 +6,16 @@ create_rmd <- function(file, parent_rmd, child_folder, theme, path) {
 
   for(i in 1:nrow(recipe)) {
 
+    out <- paste0(out, recipe[i, "before"], "\n")
+    
     new_path <- paste(child_folder, recipe[i, "md_folder"], paste0(theme, ".Rmd"), sep = "/")
-
-    new_chunk <- add_md(new_path)
-
-    out <- paste0(out, new_chunk)
+    
+    if(!is.na(recipe[i, "md_folder"]) & file.exists(new_path)) {
+       new_chunk <- add_md(new_path)
+       out <- paste0(out, new_chunk)
+    }
+    
+    out <- paste0(out, recipe[i, "after"], "\n")
 
   }
 
