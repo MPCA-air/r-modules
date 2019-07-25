@@ -1,6 +1,7 @@
-create_rmd <- function(file, parent_rmd, child_folder, theme, path) {
+create_rmd <- function(file, parent_rmd = NULL, child_folder, theme, path) {
 
-  out <- readLines(parent_rmd)
+  if(!is.null(parent_rmd)) { out <- readLines(parent_rmd)
+  } else { out <- ""}
 
   recipe <- read.csv(file, stringsAsFactors = FALSE)
 
