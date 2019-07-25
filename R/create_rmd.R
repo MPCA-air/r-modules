@@ -1,4 +1,4 @@
-create_rmd <- function(file, child_folder, theme) {
+create_rmd <- function(file, child_folder, theme, add_colors = TRUE) {
 
   recipe <- read.csv(file, stringsAsFactors = FALSE)
 
@@ -8,6 +8,8 @@ create_rmd <- function(file, child_folder, theme) {
     
     temp <- subset(recipe, ouput_file == md_file)
   
+    if(add_color) out <- paste0(out, '<div style = "border-left: solid 6px', temp$color[[1]], ';"'> \n')
+    
     for(i in 1:nrow(temp)) {
 
       out <- paste0(out, temp[i, "before"], "\n")
@@ -23,6 +25,8 @@ create_rmd <- function(file, child_folder, theme) {
 
     }
 
+    if(add_color) out <- paste0(out, '</div>')
+                                  
     writeLines(out, paste0(gsub("[.Rmd]", "", md_file), ".Rmd")))
     
    }
