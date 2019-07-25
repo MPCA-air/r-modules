@@ -23,7 +23,8 @@ create_rmd <- function(file, child_folder, theme) {
 
     }
 
-    writeLines(out, md_file)
+    writeLines(out, paste0(gsub("[.Rmd]", "", md_file), ".Rmd")))
+    
    }
 
 }
