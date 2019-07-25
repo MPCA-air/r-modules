@@ -8,7 +8,9 @@ create_rmd <- function(file, child_folder, theme, add_colors = TRUE) {
     
     temp <- subset(recipe, ouput_file == md_file)
   
-    if(add_color) out <- paste0(out, '<div style = "margin-left: -14px; padding-left: 14px; border-left: solid 8px ', temp$color[[1]], ';">')
+    if(add_color) {
+      out <- paste0(out, '<div style = "margin-left: -14px; padding-left: 14px; border-left: solid 8px ', temp$color[[1]], ';">')
+      }
     
     for(i in 1:nrow(temp)) {
 
