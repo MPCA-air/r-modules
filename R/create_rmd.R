@@ -4,7 +4,7 @@ create_rmd <- function(file, child_folder, theme, add_colors = TRUE) {
 
   out <- ""
   
-  for(md_file in unique(recipe$output_file) {
+  for(md_file in unique(recipe$output_file)) {
     
     temp <- subset(recipe, ouput_file == md_file)
   
