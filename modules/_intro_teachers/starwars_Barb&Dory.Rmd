@@ -1,0 +1,17 @@
+<div>
+<img src="../images/barbara_sq.png" style="width: 42%; border: 0px; float: left;  margin-left: 5%; margin-right: 12px;">
+</div>
+
+<div>
+<img src="../images/maz_kanata.png" style="width: 42%; border: 0px; margin-left: 12px; margin-bottom: 42px;">
+</div>
+
+We are  __Barbara M__ & __Dorian__. Yes, we look exactly like these profile photos. 
+
+Feel free to call us Barbara and Dory when you're feeling casual.   
+
+We like __R__.
+
+We aren't computer scientists and that's okay! 
+
+We make lots of mistakes. Mistakes are funny. You can laugh with us. 

@@ -1,0 +1,48 @@
+
+![](../images/rstudio.png){style="width: 85%;"}
+
+<br>
+
+
+<div class="red-note">
+__1 - Code Editor__ 
+
+This is where you write your scripts and document your work. The tabs at the top of the code editor allow you to view scripts and data sets you have open. This is where you'll spend most of your time.
+</div>
+
+<div class="red-note">
+__2 - R Console__ 
+
+This is where code is actually executed by the computer. It shows code that you have run and any errors, warnings, or other messages resulting from that code. You can input code directly into the console and run it, but it won't be saved for later. That's why we like to run all of our code directly from a script in the code editor.
+</div>
+
+<div class="red-note">
+__3 - Workspace__ 
+
+This pane shows all of the objects and functions that you have created, as well as a history of the code you have run during your current session. The environment tab shows all of your objects and functions. The history tab shows the code you have run. Note the _broom_ icon below the Connections tab. This cleans shop and allows you to clear all of the objects in your workspace.
+</div>
+
+<div class="red-note">
+__4 - Plots and files__ 
+
+These tabs allow you to view and open files in your current directory, view plots and other visual objects like maps, view your installed packages and their functions, and access the help window. If at anytime you're unsure what a function does, enter it's name after a question mark. For example, try entering `?mean` into the console and push __ENTER__.
+</div>
+
+
+## Customize R Studio {-}
+
+#### Make it your own {-}
+
+Let's add a little style so R Studio feels like home. Follow these steps to change the font-size and and color scheme: 
+
+1. Go to __Tools__ on the top navigation bar. 
+2. Choose `Global Options...`
+3. Choose `Appearance` with the paint bucket.
+4. Increase the `Editor Font size`
+5. Pick an Editor theme you like.
+    - We'll be using `Dreamweaver` for the class
+
+
+<img src="../images/font_change.png" style="width: 65%; margin-top: 14px; margin-left: 2%;">
+
+<br>
