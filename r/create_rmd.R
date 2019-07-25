@@ -10,7 +10,7 @@ create_rmd <- function(file, parent_rmd, child_folder, theme, path) {
     
     new_path <- paste(child_folder, recipe[i, "md_folder"], paste0(theme, ".Rmd"), sep = "/")
     
-    if(!is.na(recipe[i, "md_folder"]) & file.exists(new_path)) {
+    if(!is.na(recipe[i, "md_folder"])) {
        new_chunk <- add_md(new_path)
        out <- paste0(out, new_chunk)
     }
