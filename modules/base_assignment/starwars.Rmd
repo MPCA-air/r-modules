@@ -44,7 +44,7 @@ Without quotes, R looks for an object called Chewbacca, and then lets you know t
 <br>
 
 __Copy objects__
-```{r names2, eval=F}
+```{r duplicate, eval=F}
 # To copy an object, assign it to a new name
 wookie2 <- wookie
 
