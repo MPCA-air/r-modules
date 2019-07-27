@@ -5,7 +5,7 @@ knitr::knit_hooks$set(color = function(before, options, envir) {
         out <- ""
         if (!is.null(color)) out <- paste0('<div style="padding: 12px; background-color: ', options$color, ';">\n')
         mod_url <- "https://raw.githubusercontent.com/MPCA-air/r-modules/master/modules/"
-        out <- paste0(out, readLines(paste0(mod_url, "_whyr/itep.Rmd"))
+        out <- paste0(out, readLines(paste0(mod_url, "_whyr/itep.Rmd")))
         return(paste(out, collapse = "\n"))
     } else {
         ## code to be run after a chunk
