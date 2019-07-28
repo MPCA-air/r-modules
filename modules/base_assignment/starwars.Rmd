@@ -8,7 +8,9 @@ Try adding the code below to your R script to create an object called `droid`.
 To run a line of code in your script, move the cursor to that line and press __CTRL+ENTER__.
 
 ## Assignment operator {-}
+
 ```{r names, eval=F}
+
 # Create a new object
 droid <- "bb8"
 
@@ -60,9 +62,8 @@ wookie2
 
 ```
 
-
-
 __Numbers!__
+
 ```{r nums, eval=F}
 
 wookie_salary <- 500
@@ -86,10 +87,11 @@ You can drop objects with the remove function `rm() `. Try it out on some of you
 rm(wookie)
 
 rm(wookie2)
+
 ```
 
-
 <div class="tip">
+  
 ### <i class="fa fa-user-astronaut" aria-hidden="true" style="color: green"></i> Exercise! {-}
 
 How can we get the `wookie` object back?
@@ -99,7 +101,6 @@ __HINT:__ _You are allowed to re-run code._
 
 
 <br>
-
 
 <details>
 <summary class = "btn_code_blue"> **EXPLORE: ** Deleting data is okay </summary>
