@@ -11,6 +11,7 @@ knitr::knit_hooks$set(color = function(before, options, envir) {
         return(out)
     } else {
         ## code to be run after a chunk
-        if (!is.null(options$color)) return("</div>")
+        if (!is.null(options$color)) return("</div><br>")
+        else return("<br>")
     }
 })
