@@ -3,7 +3,7 @@ Let's introduce ourselves and the data we love. Chat with your __partner__ and g
 
 <br>
 
-__Ideas to share__  
+__Things to share__  
 
 ![](../images/starwars_group.jpg){align="right" style="width: 51%; margin-left: 26px; margin-top: 10px;"}
 
