@@ -1,0 +1,144 @@
+
+<div class="note">
+
+1. Read the data
+1. Plot the data
+1. Clean the data
+1. View the data closer
+1. Summarize the data
+1. Save the results
+1. __Share__ with the world
+
+</div>
+
+```{r create, include=F, eval=F, echo=F}
+library(readxl)
+library(tidyverse)
+
+# Prepare example data
+aqs <- read_excel("../data/2014_AQS_FondduLac.xlsx") %>%
+       mutate(Date = as.Date(Date))
+
+met <- read_csv("../data/COQ 2014 Processed MET -ASOS.csv") %>% 
+       mutate(Date = as.Date(paste(Year, Month, Day, sep = "-")),
+              Month = as.numeric(Month),
+              Hour = as.numeric(Hour)) %>% 
+       group_by(Date, Month, Day, Hour) %>% 
+       summarize(TEMP_F = mean(TempF, na.rm = T))
+
+aqs <- left_join(aqs, met)
+
+aqs <- filter(aqs, Parameter == 88101, !is.na(TEMP_F))
+
+aqs <- rename(aqs, OZONE = Conc, YEAR = Year, SITE = site_catid) %>%
+       rowwise() %>%
+       mutate(YEAR = 2017 - sample(-1:1, 1),
+              Date = as.Date(paste(YEAR, Month, Day, sep = "-")))
+
+aqs <- aqs %>%
+       select(SITE, Date, Hour, OZONE, TEMP_F, everything()) %>%
+       filter(Month > 3, Month < 11) %>% 
+       group_by(SITE, Date) %>%
+       mutate(OZONE  = max(OZONE, na.rm = T),
+              TEMP_F = max(TEMP_F, na.rm = T)) %>% 
+       slice(1)
+
+aqs$UNITS <- "PPB"
+
+aqs$UNITS[6] <- "PPM"
+aqs$OZONE[6] <- aqs$OZONE[6] / 1000
+
+write_csv(aqs, "../data/OZONE_samples_demo.csv")
+```
+
+### 0. Start a new project {-}
+
+We'll name this project: `"2019_Ozone"`
+
+
+### 1. Read the data {-}
+
+```{r data, message=F, warning=F, color="black"}
+library(tidyverse)
+
+air_data <- read_csv("https://itep-r.netlify.com/data/OZONE_samples_demo.csv")
+```
+
+
+```{r tbl, echo=F, message=F, warning=F}
+library(knitr)
+
+air_data %>% sample_n(5) %>% select(SITE, Date, OZONE, TEMP_F) %>% kable()
+```
+
+
+### 2. Plot the data {-}
+```{r view, message=F, fig.width=12, fig.height=4}
+ggplot(air_data, aes(x = TEMP_F, y = OZONE)) + 
+    geom_point(alpha = 0.2) +
+    geom_smooth(method = "lm")
+```
+
+
+### 3. Clean the data {-}
+```{r clean, eval=T}
+# Drop values out of range
+air_data <- air_data %>% filter(OZONE > 0, TEMP_F < 199) 
+
+# Convert all samples to PPB
+air_data <- air_data %>% 
+            mutate(OZONE = ifelse(UNITS == "PPM", OZONE * 1000, 
+                                  OZONE)) 
+```
+
+
+### 4. View the data __closer__ {-}
+```{r, fig.width=12, fig.height=4}
+ggplot(air_data, aes(x = TEMP_F, y = OZONE)) + 
+    geom_point(alpha = 0.2, size = 3) +
+    geom_smooth(method = "lm") + 
+    facet_wrap(~SITE) +
+    labs(title = "Ozone increases with temperature", 
+         subtitle = "Observations from 2015-2017")
+```
+
+
+### 5. Summarize the data {-}
+```{r summary}
+air_data <- air_data %>% 
+            group_by(SITE, YEAR) %>% 
+            summarize(AVG_OZONE = mean(OZONE) %>% round(2),
+                      AVG_TEMP  = mean(TEMP_F) %>% round(2))
+```
+
+
+```{r, echo=F}
+air_data %>% kable()
+```
+
+
+###  6. Save the results {-}
+
+__Save the final data table__
+```{r save-csv, eval=F}
+air_data %>% write_csv("results/2015-17_ozone_summary.csv")
+```
+
+
+<br>
+
+__Save the site plot to PDF__
+```{r save-pdf, eval=F}
+ggsave("results/2015-2017 - Ozone vs Temp.pdf")
+```
+
+
+### 7. Share with the world {-}
+
+<a href = "https://github.com/dKvale/ex__OZONE__Project">
+![](../images/github_example_ozone.png){style="width: 95%;"}
+</a>
+
+Having an exact record of what you did can serve as great documentation for yourself and others. So next year when your coworker asks why they're getting a different answer for the average ozone concentration in 2016, or why you dropped some values from the data, you'll be able to tell them. 
+
+Or when the lab gets back to you and lets you know the ozone observations were okay on the day that the instrument recorded ridiculously high temperatures, you can update that line in the script and push re-run.
