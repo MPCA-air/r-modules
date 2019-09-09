@@ -8,7 +8,7 @@
 - Finding R Help - [Get Help!](help.html)
 - [R Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 
-## When do we use R? {-}
+## When we use R {-}
 
 - To connect to databases
 - To read data from websites
@@ -21,9 +21,10 @@
 
 ![](../images/R_recipe.png){style="width: 54%; float: left; margin-right: 28px; margin-left: -16px; margin-top: 9px; margin-bottom: 12px;"}
 
-Lucky for us, programming doesn't have to be a bunch of math equations. R allows you to write your data analysis in a step-by-step fashion, much like creating a recipe for cookies. And just like a recipe, we can start at the top and read our way down to the bottom. 
+Lucky for us, R code doesn't have to be only math equations. R let's us do data analysis in a step-by-step fashion, much like creating a recipe for cookies. And just like a recipe, we can start at the top and read our way down to the bottom. 
 
 <div style="clear: both;"></div>
 
-<br><br>
+
+<br>
 

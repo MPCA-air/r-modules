@@ -1,13 +1,23 @@
 
-<div class="note">
+Here's an example air monitoring project from start to finish.
+
+<details>
+<summary class = "btn_code"> __EXAMPLE__ - Ozone data project > </summary>
+<div class="quiz" style="margin-top: 0; background-color: white;">
+<p><br>
+
+Imagine we just received 3 years worth of ozone monitoring data to summarize. __Fun!__ Below is an example workflow we might follow using R.
+
+<div class="note" style="padding-top: 12px;">
 
 1. Read the data
+1. Simplify columns
 1. Plot the data
 1. Clean the data
 1. View the data closer
 1. Summarize the data
 1. Save the results
-1. __Share__ with the world
+1. __Share__ with friends
 
 </div>
 
@@ -57,58 +67,72 @@ We'll name this project: `"2019_Ozone"`
 
 
 ### 1. Read the data {-}
+```{r data, message=F, warning=F}
+library(readr)
 
-```{r data, message=F, warning=F, color="black"}
-library(tidyverse)
-
+# Read a file from the web
 air_data <- read_csv("https://itep-r.netlify.com/data/OZONE_samples_demo.csv")
 ```
 
-
-```{r tbl, echo=F, message=F, warning=F}
+```{r tbl, echo=F}
 library(knitr)
+library(dplyr)
 
 air_data %>% sample_n(5) %>% select(SITE, Date, OZONE, TEMP_F) %>% kable()
 ```
 
 
-### 2. Plot the data {-}
+### 2. Simplify column names {-}
+```{r clean-names, message=F, fig.width=12, fig.height=4}
+library(janitor)
+
+# Capital letters and spaces make things more difficult
+# Let's clean them out
+air_data <- clean_names(air_data)
+```
+
+
+### 3. Plot the data {-}
 ```{r view, message=F, fig.width=12, fig.height=4}
-ggplot(air_data, aes(x = TEMP_F, y = OZONE)) + 
+library(ggplot2)
+
+ggplot(air_data, aes(x = temp_f, y = ozone)) + 
     geom_point(alpha = 0.2) +
     geom_smooth(method = "lm")
 ```
 
 
-### 3. Clean the data {-}
+### 4. Clean the data {-}
 ```{r clean, eval=T}
+library(dplyr)
+
 # Drop values out of range
-air_data <- air_data %>% filter(OZONE > 0, TEMP_F < 199) 
+air_data <- air_data %>% filter(ozone > 0, temp_f < 199) 
 
 # Convert all samples to PPB
 air_data <- air_data %>% 
-            mutate(OZONE = ifelse(UNITS == "PPM", OZONE * 1000, 
-                                  OZONE)) 
+            mutate(OZONE = ifelse(units == "PPM", ozone * 1000, 
+                                  ozone)) 
 ```
 
 
-### 4. View the data __closer__ {-}
+### 5. View the data __closer__ {-}
 ```{r, fig.width=12, fig.height=4}
-ggplot(air_data, aes(x = TEMP_F, y = OZONE)) + 
+ggplot(air_data, aes(x = temp_f, y = ozone)) + 
     geom_point(alpha = 0.2, size = 3) +
     geom_smooth(method = "lm") + 
-    facet_wrap(~SITE) +
+    facet_wrap(~site) +
     labs(title = "Ozone increases with temperature", 
          subtitle = "Observations from 2015-2017")
 ```
 
 
-### 5. Summarize the data {-}
+### 6. Summarize the data {-}
 ```{r summary}
 air_data <- air_data %>% 
-            group_by(SITE, YEAR) %>% 
-            summarize(AVG_OZONE = mean(OZONE) %>% round(2),
-                      AVG_TEMP  = mean(TEMP_F) %>% round(2))
+            group_by(site, year) %>% 
+            summarize(avg_ozone = mean(ozone) %>% round(2),
+                      avg_temp  = mean(temp_f) %>% round(2))
 ```
 
 
@@ -117,13 +141,12 @@ air_data %>% kable()
 ```
 
 
-###  6. Save the results {-}
+###  7. Save the results {-}
 
 __Save the final data table__
 ```{r save-csv, eval=F}
 air_data %>% write_csv("results/2015-17_ozone_summary.csv")
 ```
-
 
 <br>
 
@@ -133,12 +156,16 @@ ggsave("results/2015-2017 - Ozone vs Temp.pdf")
 ```
 
 
-### 7. Share with the world {-}
+### 8. Share with friends {-}
 
 <a href = "https://github.com/dKvale/ex__OZONE__Project">
 ![](../images/github_example_ozone.png){style="width: 95%;"}
 </a>
 
-Having an exact record of what you did can serve as great documentation for yourself and others. So next year when your coworker asks why they're getting a different answer for the average ozone concentration in 2016, or why you dropped some values from the data, you'll be able to tell them. 
+<div class="well">
+Having an exact record of what you did can be great documentation for yourself and others. It's also handy when you want to repeat the same analysis on new data. Then you only need to copy the script, update the read data line, and push run to get a whole new set of fancy charts.
+</div>
 
-Or when the lab gets back to you and lets you know the ozone observations were okay on the day that the instrument recorded ridiculously high temperatures, you can update that line in the script and push re-run.
+</p></div></details>
+
+<br>
